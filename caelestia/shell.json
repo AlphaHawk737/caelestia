@@ -1,0 +1,68 @@
+{
+    "appearance": {
+        "font": {
+            "scale": 1.0016564065108513
+        },
+        "transparency": {
+            "enabled": false
+        }
+    },
+    "bar": {
+        "workspaces": {
+            "maxWindowIcons": 2,
+            "windowIcons": [
+                {
+                    "icon": "sports_esports",
+                    "regex": "steam(_app_(default|[0-9]+))?"
+                },
+                {
+                    "icon": "folder",
+                    "regex": "org\\.kde\\.dolphin|thunar"
+                }
+            ]
+        }
+    },
+    "dashboard": {
+        "performance": {
+            "showBattery": true
+        }
+    },
+    "general": {
+        "idle": {
+            "inhibitWhenAudio": true,
+            "lockBeforeSleep": true,
+            "timeouts": [
+                {
+                    "idleAction": "dpms off",
+                    "returnAction": "dpms on",
+                    "timeout": 600
+                },
+                {
+                    "idleAction": "lock",
+                    "timeout": 900
+                }
+            ]
+        }
+    },
+    "paths": {
+        "wallpaperDir": "/home/Aarnav/Pictures/Wallpapers/aesthetic"
+    },
+    "services": {
+        "useFahrenheit": false,
+        "weatherLocation": "23.0258,72.5873"
+    },
+    "session": {
+        "commands": {
+            "hibernate": [
+                "bash",
+                "-c",
+                "caelestia shell lock lock && sleep 1 && systemctl hibernate"
+            ],
+            "logout": [
+                "hyprctl",
+                "dispatch",
+                "exit"
+            ]
+        }
+    }
+}
