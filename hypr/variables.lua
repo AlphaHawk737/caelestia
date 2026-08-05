@@ -15,6 +15,7 @@ return {
     editor                     = "codium",
     fileExplorer               = "thunar",
     audioSettings              = "pavucontrol",
+    discordLaunchCmd           = "app2unit -- discord",
     -- Touchpad
     touchpadDisableTyping      = true,
     touchpadScrollFactor       = 0.3,

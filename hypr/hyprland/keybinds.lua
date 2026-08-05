@@ -129,11 +129,26 @@ hl.bind(vars.kbToggleWindowFloating, hl.dsp.window.float())
 hl.bind(vars.kbCloseWindow, hl.dsp.window.close())
 
 -- Special workspace toggles
-hl.bind(vars.kbSpecialWs, hl.dsp.exec_cmd("caelestia toggle specialws"))
-hl.bind(vars.kbSystemMonitorWs, hl.dsp.exec_cmd("caelestia toggle sysmon"))
+hl.bind(vars.kbSpecialWs, hl.dsp.workspace.toggle_special("specialws"))
+hl.bind(vars.kbSystemMonitorWs, hl.dsp.workspace.toggle_special("sysmon"))
 hl.bind(vars.kbMusicWs, hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/music-picker.fish"))
-hl.bind(vars.kbCommunicationWs, hl.dsp.exec_cmd("caelestia toggle communication"))
-hl.bind(vars.kbTodoWs, hl.dsp.exec_cmd("caelestia toggle todo"))
+hl.bind(vars.kbCommunicationWs, function()
+    local running = false
+    for _, w in pairs(hl.get_windows()) do
+        local class = string.lower(w.class or "")
+        if class:find("discord") or class:find("equibop") or class:find("vesktop") or class:find("whatsapp") then
+            running = true
+            break
+        end
+    end
+
+    if not running then
+        hl.dispatch(hl.dsp.exec_cmd(vars.discordLaunchCmd))
+    end
+
+    hl.dispatch(hl.dsp.workspace.toggle_special("communication"))
+end)
+hl.bind(vars.kbTodoWs, hl.dsp.workspace.toggle_special("todo"))
 
 -- Apps
 hl.bind(vars.kbTerminal, hl.dsp.exec_cmd(vars.terminal))
@@ -141,13 +156,13 @@ hl.bind(vars.kbBrowser, hl.dsp.exec_cmd(vars.browser))
 hl.bind(vars.kbEditor, hl.dsp.exec_cmd(vars.editor))
 hl.bind(vars.mainMod .. " + G", hl.dsp.exec_cmd("app2unit -- github-desktop"))
 hl.bind(vars.kbFileExplorer, hl.dsp.exec_cmd(vars.fileExplorer))
-hl.bind(vars.mainMod .. " + W", hl.dsp.exec_cmd("bash " .. os.getenv("HOME") .. "/.config/caelestia/scripts/pick-folder.sh"))
+hl.bind(vars.mainMod .. " + W", hl.dsp.global("caelestia:wallpaperFolders"))
 hl.bind("CTRL + ALT + V", hl.dsp.exec_cmd(vars.audioSettings))
 
 -- Utilities
 hl.bind("Print", hl.dsp.exec_cmd("caelestia screenshot"), { locked = true })
 hl.bind(vars.mainMod .. " + SHIFT + S", hl.dsp.global("caelestia:screenshotFreeze"))
-hl.bind("SUPER + SHIFT + ALT + S", hl.dsp.global("caelestia:screenshot"))
+hl.bind(vars.mainMod .. " + Print", hl.dsp.global("caelestia:screenshot"))
 hl.bind("SUPER + ALT + R", hl.dsp.exec_cmd("caelestia record -s"))
 hl.bind("CTRL + ALT + R", hl.dsp.exec_cmd("caelestia record"))
 hl.bind("SUPER + SHIFT + ALT + R", hl.dsp.exec_cmd("caelestia record -r"))

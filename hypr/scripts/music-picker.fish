@@ -52,7 +52,7 @@ else
     set choice (
         for i in (seq (count $names))
             printf "%s\000icon\x1f%s\n" $names[$i] $icons[$i]
-        end | fuzzel --config=$HOME/.config/fuzzel/fuzzel-music.ini --dmenu --lines=(count $names)
+        end | fuzzel --config=$HOME/.config/fuzzel/fuzzel-music.ini --dmenu --lines=(count $names) --hide-prompt --minimal-lines
     )
 end
 

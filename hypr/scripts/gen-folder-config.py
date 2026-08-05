@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
-# ~/.config/hypr/scripts/gen-music-config.py
+# ~/.config/hypr/scripts/gen-folder-config.py
 
-import os, re
+import os, json
 
 home = os.environ['HOME']
-colors = {}
-with open(home + '/.config/hypr/scheme/current.conf') as f:
-    for line in f:
-        m = re.match(r'^\$(\w+) = ([0-9a-fA-F]+)', line)
-        if m:
-            colors[m.group(1)] = m.group(2)
+scheme_file = home + '/.local/state/caelestia/scheme.json'
 
-bg  = colors.get('background',   '131317')
-fg  = colors.get('onBackground', 'e5e1e7')
-pri = colors.get('primary',      'c2c1ff')
-out = colors.get('outline',      '918f9a')
-sur = colors.get('onSurface',    'e5e1e7')
-acc = colors.get('tertiary',     'f5b2e0')
+with open(scheme_file) as f:
+    data = json.load(f)
+
+colours = data['colours']
+
+bg  = colours.get('background',   '131317')
+fg  = colours.get('onBackground', 'e5e1e7')
+pri = colours.get('primary',      'c2c1ff')
+out = colours.get('outline',      '918f9a')
+sur = colours.get('onSurface',    'e5e1e7')
+acc = colours.get('tertiary',     'f5b2e0')
 
 config = (
     '[main]\n'
